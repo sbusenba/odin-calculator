@@ -1,0 +1,52 @@
+.calculator{
+   
+    border-radius: 5px;    
+    background-color:darkgray;
+    border:2px solid black;
+    padding:10px;
+    box-shadow:3px 3px 0px 0px black;
+}
+.numPad{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    grid-template-rows:repeat(4,1fr);
+    
+    grid-gap:10px;
+}
+
+.display{
+    border:2px solid darkgray;
+    border-radius: 5px;    
+    background-color:black;
+    padding:10px;
+    margin:10px;
+    color:darkcyan;
+    height:50px;
+}
+.button {
+    padding:10px;
+    border:2px solid darkgray;
+    border-radius: 5px;     
+    flex:1;
+    box-shadow: 2px 2px black;
+    text-align: center;
+}
+.operButton{
+    background-color: dimgray;
+}
+.numButton{
+    background-color:lightslategray;
+
+}
+.keypad{
+
+    display:grid;
+    grid-template-columns:3fr 1fr;
+}
+.operPad{
+    flex:1 1 100px;
+   display:flex;
+   flex-direction:row-reverse;
+   gap:10px;
+   padding: 1em;
+}
