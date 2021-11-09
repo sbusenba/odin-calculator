@@ -56,6 +56,10 @@ function evaluate(){
          }
 
     }
+    if (number1 !=="Can't divide by Zero!")
+    {
+        number1 =String(Number(number1).toFixed(8))
+    }
     operator =''
     number2 =''
     lastEntry='equals'
