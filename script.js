@@ -1,14 +1,14 @@
 function add(a,b){
-    return Number(a)+Number(b)
+    return String(Number(a)+Number(b))
 }
 function subtract(a,b){
-    return Number(a)-Number(b)
+    return String(Number(a)-Number(b))
 }
 function multiply(a,b){
-    return Number(a)*Number(b)
+    return String(Number(a)*Number(b))
 }
 function divide(a,b){
-return (b === 0)? "can't divide by zero!": Number(a)/Number(b)
+return (b === 0)? "can't divide by zero!": String(Number(a)/Number(b))
 }
 
 function numClick(e){
@@ -53,12 +53,16 @@ function evaluate(){
         number2 =''
     }else if (mathString.indexOf('/')>= 0){
         [number1,number2] = mathString.split('/')
-        number1 = divide(...[number1,number2])
+        if (Number(number2) != 0){
+            number1 = divide(...[number1,number2])
+         } else{
+             number1 = "Can't divide by Zero!"
+         }
         operator =''
         number2 =''
     }
 
-
+    lastEntry='number1'
 
     refreshDisp()
     
@@ -69,6 +73,7 @@ function back(){
         case '':
             break
         case 'number1':
+            console.log(number1)
             console.log(number1.slice(0,-1))
             number1 = number1.slice(0,-1)
 
@@ -87,19 +92,22 @@ function back(){
             operator = ''
             lastEntry= 'number1'
             break
-
-
-
-
-
-
-
     }
     refreshDisp()
 
 
 }
 
+function decimal(){
+    if (operator===''){
+        (number1==='') ? number1 = "0.":number1+=this.innerText
+        lastEntry='number1'
+    } else {
+        (number2==='') ? number2 = "0.":number2+=this.innerText
+        lastEntry='number2'
+    }
+    refreshDisp()
+}
 function operClick(e){
     if (operator ===''){
         operator = this.innerText
@@ -157,6 +165,7 @@ display = document.querySelector('.display')
 numButtons = document.querySelectorAll('.numButton')
 operButtons = document.querySelectorAll('.operButton')
 document.querySelector('.equalsButton').addEventListener('click',evaluate)
+document.querySelector('.decimalButton').addEventListener('click',decimal)
 document.querySelector('.backButton').addEventListener('click',back)
 document.querySelector('.clearButton').addEventListener('click',clear)
 numButtons.forEach((button)=>button.addEventListener('click',numClick))
