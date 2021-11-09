@@ -34,48 +34,51 @@ function clear(){
 
 }
 function evaluate(){
-    mathString = display.innerText
-    if (mathString.indexOf('+')>= 0){
-        [number1,number2] = mathString.split('+')
-        number1 = add(...[number1,number2])
+
+    if (operator === '+'){
+        number1 = add(number1,number2)
         operator =''
         number2 =''
 
-    } else if (mathString.indexOf('-')>= 0){
-        [number1,number2] = mathString.split('-')
-        number1 = subtract(...[number1,number2])
+    } else if (operator === '-'){
+        number1 = subtract(number1,number2)
         operator =''
         number2 =''
-    }else if (mathString.indexOf('*')>= 0){
-        [number1,number2] = mathString.split('*')
-        number1 = multiply(...[number1,number2])
+    }else if (operator === '*'){
+        number1 = multiply(number1,number2)
         operator =''
         number2 =''
-    }else if (mathString.indexOf('/')>= 0){
-        [number1,number2] = mathString.split('/')
+    }else if (operator === '/'){
         if (Number(number2) != 0){
-            number1 = divide(...[number1,number2])
+            number1 = divide(number1,number2)
          } else{
              number1 = "Can't divide by Zero!"
          }
-        operator =''
-        number2 =''
-    }
 
-    lastEntry='number1'
+    }
+    operator =''
+    number2 =''
+    lastEntry='equals'
 
     refreshDisp()
     
 }
-
+function signButton(){
+    if (number2 === ''){
+        number1 = -number1
+    } else {
+        number2 = -number2
+    }
+    refreshDisp()
+}
 function back(){
     switch (lastEntry){
         case '':
             break
         case 'number1':
             console.log(number1)
-            console.log(number1.slice(0,-1))
-            number1 = number1.slice(0,-1)
+            console.log(String(number1).slice(0,-1))
+            number1 = String(number1).slice(0,-1)
 
 
             if (number1 ===''){
@@ -92,6 +95,9 @@ function back(){
             operator = ''
             lastEntry= 'number1'
             break
+        case 'equals':
+            clear()
+            break
     }
     refreshDisp()
 
@@ -99,63 +105,62 @@ function back(){
 }
 
 function decimal(){
-    if (operator===''){
+    if ((operator==='')&&(number1.indexOf('.')===-1)){
         (number1==='') ? number1 = "0.":number1+=this.innerText
         lastEntry='number1'
-    } else {
+    } else if ((operator!=='')&&(number2.indexOf('.')===-1)) {
         (number2==='') ? number2 = "0.":number2+=this.innerText
         lastEntry='number2'
     }
     refreshDisp()
 }
 function operClick(e){
-    if (operator ===''){
-        operator = this.innerText
-        switch (operator){
-            case '+/-':
-            number1 = -number1
-            operator = ''
-            break
-            case ' + ':
-                operator = " + " 
-            break;
-            case ' - ':
-                operator = " - " 
-            break;
-            case ' * ':
-                operator = " * " 
-            break;
-            case ' / ':
-                operator = " / " 
-            break;    
-        }
-    
+    if (number1 !="Can't divide by Zero!"){
+        if (operator ===''){
+            operator = this.innerText
+            switch (operator){
+
+                case ' + ':
+                    operator = " + " 
+                break;
+                case ' - ':
+                    operator = " - " 
+                break;
+                case ' * ':
+                    operator = " * " 
+                break;
+                case ' / ':
+                    operator = " / " 
+                break;    
+            }
         
-    } else {
-        evaluate()
-        operator = this.innerText
-        switch (operator){
-            case '+/-':
-            number2 = -number2
-            operator = ''
-            break
-            case ' + ':
-                operator = " + " 
-            break;
-            case ' - ':
-                operator = " - " 
-            break;
-            case ' * ':
-                operator = " * " 
-            break;
-            case ' / ':
-                operator = " / " 
-            break; 
+            
+        } else {
+            evaluate()
+            operator = this.innerText
+            switch (operator){
+
+                case ' + ':
+                    operator = " + " 
+                break;
+                case ' - ':
+                    operator = " - " 
+                break;
+                case ' * ':
+                    operator = " * " 
+                break;
+                case ' / ':
+                    operator = " / " 
+                break; 
+            }
+        
         }
-    
+        lastEntry='operator'
+        refreshDisp()
+    }else{
+        clear()
+        refreshDisp()
     }
-    lastEntry='operator'
-    refreshDisp()
 }
 number1 =''
 number2 =''
@@ -166,6 +171,7 @@ numButtons = document.querySelectorAll('.numButton')
 operButtons = document.querySelectorAll('.operButton')
 document.querySelector('.equalsButton').addEventListener('click',evaluate)
 document.querySelector('.decimalButton').addEventListener('click',decimal)
+document.querySelector('.signButton').addEventListener('click',signButton)
 document.querySelector('.backButton').addEventListener('click',back)
 document.querySelector('.clearButton').addEventListener('click',clear)
 numButtons.forEach((button)=>button.addEventListener('click',numClick))
