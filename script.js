@@ -76,11 +76,7 @@ function back(){
         case '':
             break
         case 'number1':
-            console.log(number1)
-            console.log(String(number1).slice(0,-1))
             number1 = String(number1).slice(0,-1)
-
-
             if (number1 ===''){
                 lastEntry= ''
             }
