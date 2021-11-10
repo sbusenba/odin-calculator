@@ -164,6 +164,16 @@ function operClick(e){
         refreshDisp()
     }
 }
+function buttonClick(e){
+    console.log(this)
+    this.classList.add('clicked')
+}
+function buttonUnClick(e){
+    console.log(this)
+    this.classList.remove('clicked')
+
+}
+
 number1 =''
 number2 =''
 operator =''
@@ -178,3 +188,6 @@ document.querySelector('.backButton').addEventListener('click',back)
 document.querySelector('.clearButton').addEventListener('click',clear)
 numButtons.forEach((button)=>button.addEventListener('click',numClick))
 operButtons.forEach((button)=>button.addEventListener('click',operClick))
+buttons = document.querySelectorAll('.button')
+buttons.forEach((button) => button.addEventListener('click',buttonClick))
+buttons.forEach((button) => button.addEventListener('transitionend',buttonUnClick))

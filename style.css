@@ -14,7 +14,11 @@
     
     grid-gap:10px;
 }
+div.clicked.button {
+box-shadow:none;
+transform:translate(2px,2px);
 
+}
 .display{
     border:2px solid darkgray;
     border-radius: 5px;    
@@ -36,6 +40,14 @@
     flex:1;
     box-shadow: 2px 2px black;
     text-align: center;
+    transition-duration:0.10s;
+}
+.clearButton{
+    background-color: #c6a9a9;
+}
+.equalsButton{
+    background-color:#c1bc9c;
+
 }
 .operButton{
     background-color: dimgray;
