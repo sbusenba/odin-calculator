@@ -58,7 +58,9 @@ function evaluate(){
     }
     if (number1 !=="Can't divide by Zero!")
     {
+        if (number1.length > 8){
         number1 =String(Number(number1).toFixed(8))
+        }
     }
     operator =''
     number2 =''
@@ -96,7 +98,7 @@ function back(){
             lastEntry= 'number1'
             break
         case 'equals':
-            clear()
+            number1 = String(number1).slice(0,-1)
             break
     }
     refreshDisp()
