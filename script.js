@@ -59,7 +59,7 @@ function evaluate(){
     if (number1 !=="Can't divide by Zero!")
     {
         if (number1.length > 8){
-        number1 =String(Number(number1).toFixed(8))
+        number1 =String(Number(number1).toFixed(4))
         }
     }
     operator =''
